@@ -34,11 +34,19 @@
         stopped: false,
 
         init() {
+            this.relics = JSON.parse(localStorage.getItem("shinkoRelicFinderResults")) || [];
             this.collectReportUrlsFromAllPages()
                 .then(() => {
                     if (this.reportUrls.length === 0) {
                         UI.ErrorMessage(LANG.noReportsFound);
                         return;
+                    }
+                    if (this.relics.length > 0) {
+                        const processedReportIds = new Set(this.relics.map(r => r.reportId));
+                        this.reportUrls = this.reportUrls.filter(url => {
+                            const reportId = url.match(/view=(\d+)/)[1];
+                            return !processedReportIds.has(reportId);
+                        });
                     }
                     this.setupProgressBar();
                     this.staggeredFetchReports(
@@ -237,8 +245,9 @@
                     relic: raw,
                     quality: qc.q,
                     color: qc.color,
-                    img: qc.img,
-                    reportUrl: this.reportUrls[index]
+                    img: qc.img.outerHTML,
+                    reportUrl: this.reportUrls[index],
+                    reportId: this.reportUrls[index].match(/view=(\d+)/)[1]
                 });
             });
         },
@@ -262,6 +271,7 @@
 
             // sort by distance
             uniqueRelics.sort((a, b) => a.distance - b.distance);
+            localStorage.setItem("shinkoRelicFinderResults", JSON.stringify(uniqueRelics));
 
             const renownedCount = uniqueRelics.filter(r => r.quality === LANG.qualities.renowned).length;
             const superiorCount = uniqueRelics.filter(r => r.quality === LANG.qualities.superior).length;
@@ -270,13 +280,14 @@
             const shoddyCount = uniqueRelics.filter(r => r.quality === LANG.qualities.shoddy).length;
 
             let html = `
-                <div style="margin-bottom: 15px;">
-                    <button class="btn btn-default filter-btn" data-filter="all">Show All (${uniqueRelics.length})</button>
+                <div style="margin-bottom: 15px; display: flex;">
+                    <button class="btn btn-default filter-btn btn-confirm-yes" data-filter="all">Show All (${uniqueRelics.length})</button>
                     <button class="btn btn-default filter-btn" data-filter="${LANG.qualities.renowned}" style="color: orange;">${LANG.qualities.renowned} (${renownedCount})</button>
                     <button class="btn btn-default filter-btn" data-filter="${LANG.qualities.superior}" style="color: purple">${LANG.qualities.superior} (${superiorCount})</button>
                     <button class="btn btn-default filter-btn" data-filter="${LANG.qualities.refined}" style="color: blue;">${LANG.qualities.refined} (${refinedCount})</button>
                     <button class="btn btn-default filter-btn" data-filter="${LANG.qualities.polished}" style="color: green;">${LANG.qualities.polished} (${polishedCount})</button>
                     <button class="btn btn-default filter-btn" data-filter="${LANG.qualities.shoddy}" style="color: gray;">${LANG.qualities.shoddy} (${shoddyCount})</button>
+                    <button class="btn btn-default" id="clearCache" style="margin-left: auto">Clear cache</button>
                 </div>
                 <div style="margin-bottom: 10px; padding-right: 10px;max-height: 400px; overflow-y: auto;">
                     <table class="vis" id="relicTable" style="width:100%">
@@ -294,7 +305,7 @@
                     <tr class="relic-row" data-quality="${r.quality}">
                         <td><a href="${r.villageHref}">${r.defenderName ?? r.village}</a></td>
                         <td>${r.distance}</td>
-                        <td style="max-width:380px;word-break:break-word">${r.img ? r.img.outerHTML : ''} ${r.relic}</td>
+                        <td style="max-width:380px;word-break:break-word">${r.img ? r.img : ''} ${r.relic}</td>
                         <td style="color:${r.color}">${r.quality}</td>
                         <td><a href="${r.reportUrl}" target="_blank">${LANG.tableHeaders.reportLink}</a></td>
                     </tr>
@@ -327,6 +338,10 @@
                         }
                     });
                 });
+            });
+            document.querySelector('#clearCache').addEventListener('click', (e) => {
+                localStorage.removeItem("shinkoRelicFinderResults");
+                UI.SuccessMessage("Cache cleared! Please close and rerun the script.");
             });
         },
         calculateDistanceFromCurrentVillage(coord) {
