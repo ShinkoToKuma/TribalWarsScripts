@@ -4274,11 +4274,11 @@ var MapRenderer = {
                                 this.drawRightTriangle(canvas, originX, originY, totalColor);
 
                                 if (element.incomingAttacks > 0) this.iconOnMap(images[0], canvas, originX - 19, originY - 12, 15);
-                                if (element.wall < 20 || element.wall === "---") this.iconOnMap(images[1], canvas, originX + 7, originY - 12, 15);
+                                if (element.wall || element.wall === "---") this.iconOnMap(images[1], canvas, originX + 7, originY - 12, 15);
                                 this.iconOnMap(images[2], canvas, originX - 19, originY + 10, 15);
 
                                 if (element.incomingAttacks > 0) this.textOnMap(element.incomingAttacks, ctx, originX - 5, originY - 8, "white", "10px Arial");
-                                if (element.wall < 20 || element.wall === "---") this.textOnMap(element.wall, ctx, originX + 20, originY - 8, "white", "10px Arial");
+                                if (element.wall || element.wall === "---") this.textOnMap(element.wall, ctx, originX + 20, originY - 8, "white", "10px Arial");
                                 this.textOnMap(Math.floor(element.totalStack / 1000) + "k", ctx, originX - 2, originY + 14, "white", "10px Arial");
                             }
 
