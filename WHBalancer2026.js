@@ -1085,7 +1085,8 @@ function displayEverything() {
                                 warehouseCapacity.push(allWarehouses[i].parentElement.innerText);
                                 availableMerchants.push(allMerchants[i].innerText);
                                 totalMerchants.push("999");
-                                villagePoints.push(productionTable[i].innerText.replace(/\./g, '').replace(',', ''));
+                                const pointsText = $(productionTable[i]).children().length-1;
+                                villagePoints.push($(productionTable[i]).children()[pointsText].innerText.replace(/\./g, '').replace(',', ''));
                             }
                         }
                         else {
