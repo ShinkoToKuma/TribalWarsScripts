@@ -292,6 +292,27 @@
                 unknown: "Unknown"
             },
         },
+        de_DE: {
+            noReportsFound: "Keine Berichte gefunden! Starte das Skript bitte auf der Berichte Seite in einem der Ordner.",
+            noRelicsFound: "Keine Reliquien gefunden!",
+            relicFinderTitle: "Reliquien-Finder",
+            foundRelics: "Gefundene Reliquien",
+            tableHeaders: {
+                location: "Ort",
+                distance: "Distanz",
+                relic: "Reliquie",
+                quality: "Qualität",
+                reportLink: "Bericht link"
+            },
+            qualities: {
+                renowned: "Berühmte",
+                superior: "Erstklassig",
+                refined: "Verbessert",
+                polished: "Einfach",
+                shoddy: "Schäbig",
+                unknown: "Unbekannt"
+            },
+        },
     };
 
     const CURRENT_LOCALE = typeof game_data !== 'undefined' ? game_data.locale : 'en_DK';

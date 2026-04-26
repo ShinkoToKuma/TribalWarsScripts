@@ -806,14 +806,14 @@ const ResultsDisplay = {
 
     buildSummaryCards() {
         const stats = [
-            { name: "Premium Points Farmed", value: aggregates.totalFarmed, image: "https://www.shinko-to-kuma.com/images/ppLogImages/PPFarmed.png" },
-            { name: "Premium Points Spent", value: -aggregates.totalSpent, image: "https://www.shinko-to-kuma.com/images/ppLogImages/PPSpent.png" },
-            { name: "Gifts Received", value: aggregates.totalGiftsReceived, image: "https://www.shinko-to-kuma.com/images/ppLogImages/GiftsReceived.png" },
-            { name: "Gifts Sent", value: aggregates.totalGiftsSent, image: "https://www.shinko-to-kuma.com/images/ppLogImages/GiftsSent.png" },
-            { name: "Yearly Rewards", value: aggregates.totalYearlyReward, image: "https://www.shinko-to-kuma.com/images/ppLogImages/YearlyReward.png" },
-            { name: "World Rewards", value: aggregates.totalWorldReward, image: "https://www.shinko-to-kuma.com/images/ppLogImages/WorldReward.png" },
-            { name: "Premium Points Bought", value: aggregates.totalBought, image: "https://www.shinko-to-kuma.com/images/ppLogImages/PPBought.png" },
-            { name: "Total Refunds", value: aggregates.totalRefunds, image: "https://www.shinko-to-kuma.com/images/ppLogImages/Refunds.png" }
+            { name: "Premium Points Farmed", value: aggregates.totalFarmed, image: "https://media.innogamescdn.com/com_DS_ZZ/script_library/shinko/PPFarmed.png" },
+            { name: "Premium Points Spent", value: -aggregates.totalSpent, image: "https://media.innogamescdn.com/com_DS_ZZ/script_library/shinko/PPSpent.png" },
+            { name: "Gifts Received", value: aggregates.totalGiftsReceived, image: "https://media.innogamescdn.com/com_DS_ZZ/script_library/shinko/GiftsReceived.png" },
+            { name: "Gifts Sent", value: aggregates.totalGiftsSent, image: "https://media.innogamescdn.com/com_DS_ZZ/script_library/shinko/GiftsSent.png" },
+            { name: "Yearly Rewards", value: aggregates.totalYearlyReward, image: "https://media.innogamescdn.com/com_DS_ZZ/script_library/shinko/YearlyReward.png" },
+            { name: "World Rewards", value: aggregates.totalWorldReward, image: "https://media.innogamescdn.com/com_DS_ZZ/script_library/shinko/WorldReward.png" },
+            { name: "Premium Points Bought", value: aggregates.totalBought, image: "https://media.innogamescdn.com/com_DS_ZZ/script_library/shinko/PPBought.png" },
+            { name: "Total Refunds", value: aggregates.totalRefunds, image: "https://media.innogamescdn.com/com_DS_ZZ/script_library/shinko/Refunds.png" }
         ];
 
         let html = '<div class="bordered-box"><h3>Statistics</h3><div class="pplog-content">';
